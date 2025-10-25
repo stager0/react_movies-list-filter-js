@@ -2,27 +2,23 @@ import './MoviesList.scss';
 import { MovieCard } from '../MovieCard';
 
 export const MoviesList = ({ movies, search }) => {
-  let filteredMovies;
+  let visibleMovies;
+
+  const normalize = str => str.trim().toLowerCase();
 
   if (search) {
-    filteredMovies = movies.filter(
+    visibleMovies = movies.filter(
       movie =>
-        movie.title
-          .trim()
-          .toLowerCase()
-          .includes(search.trim().toLowerCase()) ||
-        movie.description
-          .trim()
-          .toLowerCase()
-          .includes(search.trim().toLowerCase()),
+        normalize(movie.title).includes(search.trim().toLowerCase()) ||
+        normalize(movie.description).includes(search.trim().toLowerCase()),
     );
   } else {
-    filteredMovies = movies;
+    visibleMovies = movies;
   }
 
   return (
     <div className="movies">
-      {filteredMovies.map(movie => (
+      {visibleMovies.map(movie => (
         <MovieCard key={movie.imdbId} movie={movie} />
       ))}
     </div>
