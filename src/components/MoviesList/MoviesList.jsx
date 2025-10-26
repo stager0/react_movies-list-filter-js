@@ -5,12 +5,13 @@ export const MoviesList = ({ movies, search }) => {
   let visibleMovies;
 
   const normalize = str => str.trim().toLowerCase();
+  const searchNormalized = normalize(search);
 
   if (search) {
     visibleMovies = movies.filter(
       movie =>
-        normalize(movie.title).includes(search.trim().toLowerCase()) ||
-        normalize(movie.description).includes(search.trim().toLowerCase()),
+        normalize(movie.title).includes(searchNormalized) ||
+        normalize(movie.description).includes(searchNormalized),
     );
   } else {
     visibleMovies = movies;
